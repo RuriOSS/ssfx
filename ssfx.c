@@ -199,6 +199,7 @@ int ssfx_dump_a_file_to_disk(const char *_Nullable path, const char *_Nullable o
 	}
 	fclose(fp);
 	fclose(out_fp);
+	chmod(output_path, S_IRUSR | S_IWUSR | S_IXUSR);
 	return 0;
 }
 int ssfx_proc_fs_works()
