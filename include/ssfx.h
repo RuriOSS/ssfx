@@ -33,7 +33,7 @@
 // THIS PROGRAM WILL NOT WORK WHEN PLATFORM CPU ARCHITECTURE IS DIFFERENT
 // PLEASE MAKE SURE THAT YOUR PROGRAM IS STATICALLY LINKED
 // PLEASE MAKE SURE THAT BUNDLED FILES ARE ALSO STATICALLY LINKED
-// OTHERWISE, IT WILL EVEN NOT HAVE CROSS-PLATFORM COMPATIBILITY
+// OTHERWISE, IT WILL EVEN NOT HAVE CROSS OPERATING SYSTEM COMPATIBILITY
 //
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -48,6 +48,7 @@
 #include <fcntl.h>
 #include <sys/mount.h>
 #include <linux/memfd.h>
+// For compatibility
 #ifdef __ANDROID__
 #include <sys/syscall.h>
 #define memfd_create(...) syscall(SYS_memfd_create, __VA_ARGS__)
@@ -59,15 +60,21 @@
 #define _Nullable
 #endif
 // SSFX definitions
-#define SSFX_MAGIC_START 0x114514FA
-#define SSFX_MAGIC_END 0x1919810A
-#define SSFX_SPLITTER "\n==114514SSFXSPLITTER==\n"
+#define SSFX_MAGIC_START 0x114514FA // DO NOT CHANGE THIS VALUE
+#define SSFX_MAGIC_END 0x1919810A // DO NOT CHANGE THIS VALUE
+#define SSFX_SPLITTER "\n==114514SSFXSPLITTER==\n" // This can be changed, but no need to
 #define SSFX_VERSION_MAJOR 0
 #define SSFX_VERSION_MINOR 9
 #define SSFX_VERSION_PATCH 9
 #define SSFX_VERSION_STRING "0.9.9"
-struct __attribute__((packed)) __attribute__((aligned(1))) ssfx_info {
-	// SSFX information structure
+struct __attribute__((packed, aligned(1))) ssfx_info {
+	/*
+	 * Structure to store SSFX packaging information
+	 * As these data will be appended to the end of the executable,
+	 * we always use unsigned and fixed-size types to avoid compatibility issues.
+	 * Note: magic numbers is verified in program, so do not change them!
+	 *
+	 */
 	// For verfication
 	uint32_t magic_start; // Magic number at the start
 	uint64_t struct_size; // Size of this structure

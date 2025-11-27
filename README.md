@@ -5,3 +5,11 @@ It allows you to bundle multiple files into a single executable file that can ex
 - Load elf from memfd.
 - Pack max 5 files and self executable into single executable.
 - Each file and self executable can have a uint64_t ID and 512 bytes comment.
+
+# Security Warning:
+ssfx does not implement any security measures.      
+You need to sign the generated self-extracting executable files yourself, and verify the signature before executing them to ensure their authenticity and integrity.      
+
+# License:
+ssfx is licensed under the MIT License.       
+Copyright (c) 2025 MoeHacker
