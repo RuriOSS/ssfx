@@ -20,6 +20,9 @@ int main()
 		printf("No SSFX info found in self executable.\n");
 		struct ssfx_pack pack;
 		ssfx_init_ssfx_pack(&pack);
+		pack.output_path = "ssfx_other_packed_0";
+		pack.ssfx_id = 7;
+		ssfx_pack_ssfx(&pack);
 		pack.output_path = "ssfx_other_packed";
 		pack.file_0_path = "/usr/bin/tar";
 		pack.file_0_id = 1;

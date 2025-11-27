@@ -59,7 +59,7 @@ ssfx
 ssfx_master
 ssfx_tmp_tar_exe
 ssfx_other
-ssfx_other_packed
+ssfx_other_packed*
 x
 origional_exe_dumped
 tar.dump

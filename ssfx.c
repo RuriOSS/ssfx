@@ -95,6 +95,7 @@ int ssfx_load_a_elf_to_memory(const char *_Nullable path, uint64_t start, uint64
 	 * Load a file segment to memory using memfd_create
 	 * Return memfd file descriptor if successful
 	 * Return -1 if failed
+	 * If path is NULL, use /proc/self/exe
 	 */
 	if (path == NULL) {
 		path = "/proc/self/exe";
@@ -150,6 +151,7 @@ int ssfx_dump_a_file_to_disk(const char *_Nullable path, const char *_Nullable o
 	 * Dump a file segment to disk
 	 * Return 0 if successful
 	 * Return -1 if failed
+	 * If path is NULL, use /proc/self/exe
 	 */
 	if (path == NULL) {
 		path = "/proc/self/exe";
@@ -233,6 +235,7 @@ int ssfx_verify_ssfx_info(const char *_Nullable path)
 	 * Verify SSFX information structure in the given file
 	 * Return 0 if valid SSFX info found
 	 * Return -1 if not found or invalid
+	 * If path is NULL, use /proc/self/exe
 	 */
 	// Read ssfx_info structure from the end of the file
 	if (path == NULL) {
@@ -370,6 +373,8 @@ struct ssfx_info ssfx_get_ssfx_info(const char *_Nullable path)
 {
 	/*
 	 * Get SSFX information structure from the given file
+	 * If not found or invalid, return zeroed structure
+	 * If path is NULL, use /proc/self/exe
 	 */
 	// Read ssfx_info structure from the end of the file
 	struct ssfx_info info;
@@ -398,6 +403,7 @@ void ssfx_print_ssfx_info(const char *_Nonnull path)
 {
 	/*
 	 * Print SSFX information structure from the given file
+	 * If path is NULL, use /proc/self/exe
 	 */
 	if (path == NULL) {
 		path = "/proc/self/exe";
@@ -442,6 +448,7 @@ int ssfx_pack_ssfx(struct ssfx_pack *_Nonnull pack)
 	 * Pack files into an SSFX executable
 	 * Return 0 if successful
 	 * Return -1 if failed
+	 * If pack->self_path is NULL, use /proc/self/exe
 	 */
 	struct ssfx_info info;
 	ssfx_init_ssfx_info(&info);
@@ -602,6 +609,7 @@ void ssfx_find_and_print_splitter_offsets(const char *_Nullable path)
 	/*
 	 * Find and print all splitter offsets in the given file
 	 * Only for debugging.
+	 * If path is NULL, use /proc/self/exe
 	 */
 	// Read the entire file and search for splitter occurrences
 	if (path == NULL) {
