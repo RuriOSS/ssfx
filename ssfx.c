@@ -204,8 +204,8 @@ int ssfx_dump_a_file_to_disk(const char *_Nullable path, const char *_Nullable o
 		total_read += written;
 	}
 	fclose(fp);
+	fchmod(fileno(out_fp), S_IRUSR | S_IWUSR | S_IXUSR);
 	fclose(out_fp);
-	chmod(output_path, S_IRUSR | S_IWUSR | S_IXUSR);
 	return 0;
 }
 int ssfx_proc_fs_works(void)
@@ -610,8 +610,8 @@ end:
 	fwrite(&info, 1, sizeof(info), out_fp);
 	// Clean up
 	fclose(splitter_fp);
+	fchmod(fileno(out_fp), S_IRUSR | S_IWUSR | S_IXUSR);
 	fclose(out_fp);
-	chmod(output_path, S_IRUSR | S_IWUSR | S_IXUSR);
 	return 0;
 }
 void ssfx_find_and_print_splitter_offsets(const char *_Nullable path)
